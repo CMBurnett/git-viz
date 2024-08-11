@@ -4,9 +4,10 @@ import { getDateRange } from '../utils/date-utils';
 
 interface DateRangePresetSelectorProps {
   onSelect: (range: DateRange) => void;
+  currentRange: DateRange;
 }
 
-const DateRangePresetSelector: React.FC<DateRangePresetSelectorProps> = ({ onSelect }) => {
+const DateRangePresetSelector: React.FC<DateRangePresetSelectorProps> = ({ onSelect, currentRange }) => {
   const presets: { label: string; range: string }[] = [
     { label: 'Last 7 days', range: '7days' },
     { label: 'Last 30 days', range: '30days' },
@@ -15,15 +16,23 @@ const DateRangePresetSelector: React.FC<DateRangePresetSelectorProps> = ({ onSel
     { label: 'Last year', range: '1year' },
   ];
 
+  const isCurrentRange = (range: string) => {
+    const presetRange = getDateRange(range);
+    return presetRange.start === currentRange.start && presetRange.end === currentRange.end;
+  };
+
   return (
     <div className="mb-4">
-      <label className="block text-sm font-medium text-gray-700 mb-2">Preset Ranges:</label>
       <div className="flex flex-wrap gap-2">
         {presets.map((preset) => (
           <button
             key={preset.label}
             onClick={() => onSelect(getDateRange(preset.range))}
-            className="px-3 py-1 bg-blue-100 text-blue-800 rounded hover:bg-blue-200 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className={`px-3 py-1 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+              isCurrentRange(preset.range)
+                ? 'bg-blue-500 text-white'
+                : 'bg-blue-100 text-blue-800 hover:bg-blue-200'
+            }`}
           >
             {preset.label}
           </button>

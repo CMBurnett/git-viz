@@ -12,6 +12,9 @@ To create a GitHub Contribution map component with options, purely with AI (in t
 - this initial functioning state had some style and good motion to it, but there was XXhrs in styling the component to my liking in Tailwind
 - I'll need to spend some time cleaning up the main page for publishing this publicly available component
 - I'll also need to spend some time breaking out the stats and map from the page, so we can use them indepenently from the repo main page
+- I found that having it way more modular (this approach to building with AI and having it break it down very modularly) than I anticipated was a HUGE help. When I want to go change s small thing like - add/change some contribution stats - I can focus on that one file and not have to worry about replacing whole swaths of code. Much more targeted and helps contain the net of changes.
+- important to note: you need to make sure if you are working through a Claude project/thread, you need to constantly give it current context. E.g. I asked it (in the main thread) to make the 'legend' take the shape prop, and it didn't use the most recent context I had with making sure it was capturing 6 levels/colors. So I decided to go in to the component myself and update.
+
 
 
 ## Team Members

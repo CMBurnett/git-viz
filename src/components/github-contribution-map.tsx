@@ -7,7 +7,6 @@ import useContributionCalculations from '../hooks/use-contribution-calculations'
 import ContributionGrid from './contribution-grid';
 import ContributionStats from './contribution-stats';
 import Legend from './legend';
-import DateRangeSelector from './date-range-selector';
 import DateRangePresetSelector from './date-range-preset-selector';
 import StatusMessage from './status-message';
 import { ColorScheme, DateRange, Shape } from "../types";
@@ -16,13 +15,10 @@ import { generateColorScale } from '../utils/color-utils';
 
 export interface GitHubContributionMapProps {
   username: string;
-  initialDateRange?: DateRange;
   initialColorScheme?: ColorScheme;
   initialShape?: Shape;
   showColorSchemeSelector?: boolean;
   showShapeToggle?: boolean;
-  showDateRangeSelector?: boolean;
-  showDateRangePresetSelector?: boolean;
   onDateRangeChange?: (newDateRange: DateRange) => void;
   onColorSchemeChange?: (newColorScheme: ColorScheme) => void;
   onShapeChange?: (newShape: Shape) => void;
@@ -36,18 +32,15 @@ const predefinedColorSchemes: { [key: string]: ColorScheme } = {
 
 const GitHubContributionMap: React.FC<GitHubContributionMapProps> = ({
   username,
-  initialDateRange = getDateRange('1year'),
   initialColorScheme = predefinedColorSchemes.default,
   initialShape = 'rounded-square',
   showColorSchemeSelector = true,
   showShapeToggle = true,
-  showDateRangeSelector = true,
-  showDateRangePresetSelector = true,
   onDateRangeChange,
   onColorSchemeChange,
   onShapeChange
 }) => {
-  const [dateRange, setDateRange] = useState<DateRange>(initialDateRange);
+  const [dateRange, setDateRange] = useState<DateRange>(getDateRange('1year'));
   const [colorScheme, setColorScheme] = useState<ColorScheme>(initialColorScheme);
   const [shape, setShape] = useState<Shape>(initialShape);
 
@@ -55,16 +48,8 @@ const GitHubContributionMap: React.FC<GitHubContributionMapProps> = ({
   const processedData = useContributionCalculations(data, colorScheme);
 
   const handleDateRangeChange = (newDateRange: DateRange) => {
-    if (isValidDateRange(newDateRange.start, newDateRange.end)) {
-      const formattedRange = {
-        start: new Date(newDateRange.start).toISOString(),
-        end: new Date(newDateRange.end).toISOString()
-      };
-      setDateRange(formattedRange);
-      onDateRangeChange?.(formattedRange);
-    } else {
-      console.error('Invalid date range');
-    }
+    setDateRange(newDateRange);
+    onDateRangeChange?.(newDateRange);
   };
 
   const handleColorSchemeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -87,8 +72,7 @@ const GitHubContributionMap: React.FC<GitHubContributionMapProps> = ({
       className="w-full max-w-4xl mx-auto p-4"
     >
       <h2 className="text-2xl font-bold mb-4">GitHub Contributions for {username}</h2>
-      {showDateRangePresetSelector && <DateRangePresetSelector onSelect={handleDateRangeChange} />}
-      {showDateRangeSelector && <DateRangeSelector dateRange={dateRange} onDateRangeChange={handleDateRangeChange} />}
+      <DateRangePresetSelector onSelect={handleDateRangeChange} currentRange={dateRange} />
       <div className="mb-4 flex items-center flex-wrap">
         {showColorSchemeSelector && (
           <select
@@ -115,7 +99,7 @@ const GitHubContributionMap: React.FC<GitHubContributionMapProps> = ({
         <>
           <ContributionStats data={processedData} />
           <ContributionGrid data={processedData} shape={shape} />
-          <Legend colorScheme={colorScheme} />
+          <Legend colorScheme={colorScheme} shape={shape} />
         </>
       )}
     </motion.div>

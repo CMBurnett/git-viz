@@ -5,8 +5,6 @@ const useContributionCalculations = (data: GitHubData | null, colorScheme: Color
   return useMemo(() => {
     if (!data) return null;
 
-    const { weeks } = data;
-
     const getColorIndex = (count: number): number => {
       if (count === 0) return 0;
       if (count >= 1 && count <= 3) return 1;
@@ -19,16 +17,16 @@ const useContributionCalculations = (data: GitHubData | null, colorScheme: Color
     // Ensure we have a valid color scheme
     const validColorScheme = colorScheme.length === 6 ? colorScheme : ['#ebedf0', '#9be9a8', '#40c463', '#30a14e', '#216e39', '#00471b'];
 
-    return weeks.map(week => 
-      week.contributionDays.map(day => {
-        const colorIndex = getColorIndex(day.contributionCount);
-        return {
-          date: day.date,
-          count: day.contributionCount,
-          color: validColorScheme[colorIndex]
-        };
-      })
-    );
+    // Flatten, process, and sort the data
+    const processedData = data.weeks.flatMap(week => 
+      week.contributionDays.map(day => ({
+        date: day.date,
+        count: day.contributionCount,
+        color: validColorScheme[getColorIndex(day.contributionCount)]
+      }))
+    ).sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+
+    return processedData;
   }, [data, colorScheme]);
 };
 

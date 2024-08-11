@@ -4,31 +4,41 @@ export const formatDate = (date: string): string => {
   return new Date(date).toLocaleDateString();
 };
 
-export const getDateRange = (range: string): DateRange => {
-  const today = new Date();
-  const end = today.toISOString(); // This will include the time component
-  let start: string;
+export const getDateRange = (range: string = '1year'): DateRange => {
+  const now = new Date();
+  const end = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(), 23, 59, 59, 999));
+  let start: Date;
 
   switch (range) {
     case '7days':
-      start = new Date(today.setDate(today.getDate() - 7)).toISOString();
+      start = new Date(end);
+      start.setUTCDate(end.getUTCDate() - 6);
       break;
     case '30days':
-      start = new Date(today.setDate(today.getDate() - 30)).toISOString();
+      start = new Date(end);
+      start.setUTCDate(end.getUTCDate() - 29);
       break;
     case '3months':
-      start = new Date(today.setMonth(today.getMonth() - 3)).toISOString();
+      start = new Date(end);
+      start.setUTCMonth(end.getUTCMonth() - 3);
       break;
     case '6months':
-      start = new Date(today.setMonth(today.getMonth() - 6)).toISOString();
+      start = new Date(end);
+      start.setUTCMonth(end.getUTCMonth() - 6);
       break;
     case '1year':
     default:
-      start = new Date(today.setFullYear(today.getFullYear() - 1)).toISOString();
-      break;
+      start = new Date(end);
+      start.setUTCFullYear(end.getUTCFullYear() - 1);
+      start.setUTCDate(start.getUTCDate() + 1); // Include full year
   }
 
-  return { start, end };
+  start.setUTCHours(0, 0, 0, 0);
+  
+  return { 
+    start: start.toISOString(),
+    end: end.toISOString()
+  };
 };
 
 export const isValidDateRange = (start: string, end: string): boolean => {

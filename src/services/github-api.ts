@@ -32,8 +32,12 @@ export const fetchGitHubContributions = async (username: string, dateRange: Date
     to: dateRange.end,
   };
 
+  console.log('API call date range:', {
+    from: new Date(dateRange.start).toUTCString(),
+    to: new Date(dateRange.end).toUTCString()
+  });
+
   try {
-    console.log('Sending request to GitHub API with variables:', variables);
     const response = await fetch(API_BASE_URL, {
       method: 'POST',
       headers: {
@@ -44,18 +48,13 @@ export const fetchGitHubContributions = async (username: string, dateRange: Date
     });
 
     if (!response.ok) {
-      throw new Error(`GitHub API request failed with status ${response.status}`);
+      throw new Error('GitHub API request failed');
     }
 
     const data = await response.json();
-    console.log('Received data from GitHub API:', data);
-
+    
     if (data.errors) {
       throw new Error(`GraphQL Errors: ${JSON.stringify(data.errors)}`);
-    }
-
-    if (!data.data || !data.data.user) {
-      throw new Error('Unexpected response structure from GitHub API');
     }
 
     return data.data.user.contributionsCollection.contributionCalendar;

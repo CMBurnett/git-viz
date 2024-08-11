@@ -1,6 +1,6 @@
 import React from 'react';
 import { ProcessedData, Shape } from '../types';
-import DayCell from "./day-cell";
+import DayCell from './day-cell';
 
 interface ContributionGridProps {
   data: ProcessedData;
@@ -8,9 +8,6 @@ interface ContributionGridProps {
 }
 
 const ContributionGrid: React.FC<ContributionGridProps> = ({ data, shape }) => {
-  // Flatten the data array
-  const flattenedData = data.flat();
-
   return (
     <div className="">
       <div 
@@ -21,7 +18,7 @@ const ContributionGrid: React.FC<ContributionGridProps> = ({ data, shape }) => {
         role="grid" 
         aria-label="GitHub contribution graph"
       >
-        {flattenedData.map((day, index) => (
+        {data.map((day, index) => (
           <DayCell
             key={`day-${index}`}
             date={day.date}

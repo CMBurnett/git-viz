@@ -18,7 +18,7 @@ const DayCell: React.FC<DayCellProps> = ({ date, count, color, shape }) => {
       initial={{ scale: 0 }}
       animate={{ scale: 1 }}
       transition={{ duration: 0.2 }}
-      className={`w-3 h-3 ${cellShape} relative group`}
+      className={`w-4 h-4 ${cellShape} relative group opacity-60`}
       style={{ backgroundColor: color }}
       role="gridcell"
       tabIndex={0}

@@ -8,7 +8,6 @@ export type ColorScheme = string[];
 export type Shape = 'rounded-square' | 'circle';
 
 export type GitHubData = {
-  totalContributions: number;
   weeks: {
     contributionDays: {
       date: string;
@@ -21,4 +20,4 @@ export type ProcessedData = {
   date: string;
   count: number;
   color: string;
-}[][];
+}[];
