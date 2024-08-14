@@ -18,10 +18,11 @@ const DayCell: React.FC<DayCellProps> = ({ date, count, color, shape }) => {
       initial={{ scale: 0 }}
       animate={{ scale: 1 }}
       transition={{ duration: 0.2 }}
-      className={`w-4 h-4 ${cellShape} relative group opacity-60`}
+      className={`w-3 h-3 ${cellShape} relative group`}
       style={{ backgroundColor: color }}
       role="gridcell"
       tabIndex={0}
+      whileHover={{ scale: 1.2 }}
       aria-label={`${formattedDate}: ${count} contribution${count !== 1 ? 's' : ''}`}
     >
       <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 bg-gray-800 text-white text-xs rounded py-1 px-2 opacity-0 group-hover:opacity-100 group-focus:opacity-100 transition-opacity duration-300 pointer-events-none mb-2 whitespace-nowrap z-10">
