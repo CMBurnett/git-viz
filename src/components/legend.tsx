@@ -15,15 +15,16 @@ const Legend: React.FC<LegendProps> = ({ colorScheme, shape }) => {
 
   return (
     <div className="flex items-center justify-end mt-4 text-sm">
-      {displayColors.map((color, index) => (
+        <span>Less</span>
+        {displayColors.map((color, index) => (
         <div key={index} className="flex flex-col items-center mx-1">
-          <div
+        <div
             className={`w-4 h-4 ${cellShape}`}
             style={{ backgroundColor: color }}
           />
-          <span className="text-xs mt-1">{levels[index]}</span>
         </div>
       ))}
+        <span>More</span>
     </div>
   );
 };

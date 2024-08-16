@@ -1,10 +1,10 @@
 import React from 'react';
-import { DateRange } from '../types';
+import { DateRange, PredefinedDateRange } from '../types';
 import { getDateRange } from '../utils/date-utils';
 
 interface DateRangePresetSelectorProps {
   onSelect: (range: DateRange) => void;
-  currentRange: DateRange;
+  currentRange: PredefinedDateRange;
 }
 
 const DateRangePresetSelector: React.FC<DateRangePresetSelectorProps> = ({ onSelect, currentRange }) => {
@@ -17,10 +17,9 @@ const DateRangePresetSelector: React.FC<DateRangePresetSelectorProps> = ({ onSel
   ];
 
   const isCurrentRange = (range: string) => {
-    const presetRange = getDateRange(range);
-    return presetRange.start === currentRange.start && presetRange.end === currentRange.end;
+    return range === currentRange;
   };
-
+  
   return (
     <div className="mb-4">
       <div className="flex flex-wrap gap-2">

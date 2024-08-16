@@ -24,3 +24,16 @@ export const getContrastColor = (hexColor: string): string => {
   const yiq = ((r * 299) + (g * 587) + (b * 114)) / 1000;
   return (yiq >= 128) ? '#000000' : '#FFFFFF';
 };
+
+export const generatePaletteFromHex = (hexColor: string): string[] => {
+  const baseColor = hexColor;
+
+  return [
+    'bg-white opacity-20 dark:bg-black dark:opacity-80', // Tailwind class for 0 contributions
+    interpolateColor(baseColor, '#FFFFFF', 0.75), // 25% intensity
+    interpolateColor(baseColor, '#FFFFFF', 0.5),  // 50% intensity
+    baseColor,                                    // Original color (middle)
+    interpolateColor(baseColor, '#000000', 0.25), // 75% intensity
+    interpolateColor(baseColor, '#000000', 0.5)   // 100% intensity
+  ];
+};

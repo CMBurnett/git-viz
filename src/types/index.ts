@@ -3,6 +3,8 @@ export type DateRange = {
   end: string;
 };
 
+export type PredefinedDateRange = '7days' | '30days' | '3months' | '6months' | '1year';
+
 export type ColorScheme = string[];
 
 export type Shape = 'rounded-square' | 'circle';

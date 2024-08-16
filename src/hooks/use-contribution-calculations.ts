@@ -14,15 +14,11 @@ const useContributionCalculations = (data: GitHubData | null, colorScheme: Color
       return 5; // 13+
     };
 
-    // Ensure we have a valid color scheme
-    const validColorScheme = colorScheme.length === 6 ? colorScheme : ['#ebedf0', '#9be9a8', '#40c463', '#30a14e', '#216e39', '#00471b'];
-
-    // Flatten, process, and sort the data
     const processedData = data.weeks.flatMap(week => 
       week.contributionDays.map(day => ({
-        date: new Date(day.date + 'T00:00:00Z').toISOString(),
+        date: day.date,
         count: day.contributionCount,
-        color: validColorScheme[getColorIndex(day.contributionCount)]
+        color: colorScheme[getColorIndex(day.contributionCount)]
       }))
     ).sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
 

@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React, { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
 import useGitHubData from "../hooks/use-github-data";
 import useContributionCalculations from '../hooks/use-contribution-calculations';
 import ContributionGrid from './contribution-grid';
@@ -9,60 +9,46 @@ import ContributionStats from './contribution-stats';
 import Legend from './legend';
 import DateRangePresetSelector from './date-range-preset-selector';
 import StatusMessage from './status-message';
-import { ColorScheme, DateRange, Shape } from "../types";
-import { getDateRange, isValidDateRange } from '../utils/date-utils';
-import { generateColorScale } from '../utils/color-utils';
+import { ColorScheme, DateRange, Shape, PredefinedDateRange } from "../types";
+import { getDateRange } from '../utils/date-utils';
+import { generatePaletteFromHex } from '../utils/color-utils';
 
 export interface GitHubContributionMapProps {
   username: string;
-  initialColorScheme?: ColorScheme;
-  initialShape?: Shape;
-  showColorSchemeSelector?: boolean;
-  showShapeToggle?: boolean;
+  hexColor?: string;
+  shape?: Shape;
+  showStats?: boolean;
+  showLegend?: boolean;
+  initialDateRange?: PredefinedDateRange;
   onDateRangeChange?: (newDateRange: DateRange) => void;
   onColorSchemeChange?: (newColorScheme: ColorScheme) => void;
-  onShapeChange?: (newShape: Shape) => void;
 }
-
-const predefinedColorSchemes: { [key: string]: ColorScheme } = {
-  default: ['#ebedf0', '#9be9a8', '#40c463', '#30a14e', '#216e39', '#00471b'],
-  blue: ['#ebedf0', '#79b8ff', '#2188ff', '#0366d6', '#005cc5', '#044289'],
-  red: ['#ebedf0', '#ffb3ba', '#ff6b6b', '#ff3333', '#cc0000', '#990000'],
-};
 
 const GitHubContributionMap: React.FC<GitHubContributionMapProps> = ({
   username,
-  initialColorScheme = predefinedColorSchemes.default,
-  initialShape = 'rounded-square',
-  showColorSchemeSelector = true,
-  showShapeToggle = true,
+  hexColor = '#40c463',
+  shape = 'rounded-square',
+  showStats = true,
+  showLegend = true,
+  initialDateRange = '1year',
   onDateRangeChange,
-  onColorSchemeChange,
-  onShapeChange
+  onColorSchemeChange
 }) => {
-  const [dateRange, setDateRange] = useState<DateRange>(getDateRange('1year'));
-  const [colorScheme, setColorScheme] = useState<ColorScheme>(initialColorScheme);
-  const [shape, setShape] = useState<Shape>(initialShape);
+  const [currentPresetRange, setCurrentPresetRange] = useState<PredefinedDateRange>(initialDateRange);
+  const [colorScheme, setColorScheme] = useState<ColorScheme>(generatePaletteFromHex(hexColor));
 
-  const { data, loading, error } = useGitHubData(username, dateRange);
+  const { data, loading, error } = useGitHubData(username, getDateRange(currentPresetRange));
   const processedData = useContributionCalculations(data, colorScheme);
 
-  const handleDateRangeChange = (newDateRange: DateRange) => {
-    setDateRange(newDateRange);
-    onDateRangeChange?.(newDateRange);
-  };
-
-  const handleColorSchemeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const newColorScheme = predefinedColorSchemes[e.target.value];
+  useEffect(() => {
+    const newColorScheme = generatePaletteFromHex(hexColor);
     setColorScheme(newColorScheme);
     onColorSchemeChange?.(newColorScheme);
-  };
+  }, [hexColor, onColorSchemeChange]);
 
-  const handleShapeToggle = () => {
-    const newShape = shape === 'rounded-square' ? 'circle' : 'rounded-square';
-    console.log('New shape:', newShape);
-    setShape(newShape);
-    onShapeChange?.(newShape);
+  const handleDateRangeChange = (newPresetRange: PredefinedDateRange) => {
+    setCurrentPresetRange(newPresetRange);
+    onDateRangeChange?.(getDateRange(newPresetRange));
   };
 
   return (
@@ -73,34 +59,13 @@ const GitHubContributionMap: React.FC<GitHubContributionMapProps> = ({
       className="w-full max-w-4xl mx-auto p-4"
     >
       <h2 className="text-2xl font-bold mb-4">GitHub Contributions for {username}</h2>
-      <DateRangePresetSelector onSelect={handleDateRangeChange} currentRange={dateRange} />
-      <div className="mb-4 flex items-center flex-wrap">
-        {showColorSchemeSelector && (
-          <select
-            value={Object.keys(predefinedColorSchemes).find(key => predefinedColorSchemes[key] === colorScheme) || 'default'}
-            onChange={handleColorSchemeChange}
-            className="mr-4 p-2 border rounded"
-          >
-            {Object.keys(predefinedColorSchemes).map(key => (
-              <option key={key} value={key}>{key}</option>
-            ))}
-          </select>
-        )}
-        {showShapeToggle && (
-          <button
-            onClick={handleShapeToggle}
-            className="p-2 bg-blue-500 text-white rounded hover:bg-blue-600 mr-4"
-          >
-            Toggle Shape: {shape === 'rounded-square' ? 'Square' : 'Circle'}
-          </button>
-        )}
-      </div>
+      <DateRangePresetSelector onSelect={handleDateRangeChange} currentRange={currentPresetRange} />
       <StatusMessage loading={loading} error={error} />
       {processedData && (
         <>
-          <ContributionStats data={processedData} />
-          <ContributionGrid data={processedData} shape={shape} />
-          <Legend key={shape} colorScheme={colorScheme} shape={shape} />
+          {showStats && <ContributionStats data={processedData} />}
+          <ContributionGrid data={processedData} shape={shape} colorScheme={colorScheme} />
+          {showLegend && <Legend colorScheme={colorScheme} shape={shape} />}
         </>
       )}
     </motion.div>
