@@ -52,7 +52,7 @@ export const fetchGitHubContributions = async (username: string, dateRange: Date
     }
 
     const data = await response.json();
-    
+
     if (data.errors) {
       throw new Error(`GraphQL Errors: ${JSON.stringify(data.errors)}`);
     }

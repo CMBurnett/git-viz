@@ -10,7 +10,8 @@ interface DayCellProps {
 }
 
 const DayCell: React.FC<DayCellProps> = ({ date, count, color, shape }) => {
-  const formattedDate = new Date(date).toLocaleDateString();
+  const cellDate = new Date(date);
+  const formattedDate = `${cellDate.getUTCFullYear()}-${String(cellDate.getUTCMonth() + 1).padStart(2, '0')}-${String(cellDate.getUTCDate()).padStart(2, '0')}`;
   const cellShape = shape === 'circle' ? 'rounded-full' : 'rounded-sm';
 
   return (

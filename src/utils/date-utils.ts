@@ -34,8 +34,8 @@ export const getDateRange = (range: string = '1year'): DateRange => {
   }
 
   start.setUTCHours(0, 0, 0, 0);
-  
-  return { 
+
+  return {
     start: start.toISOString(),
     end: end.toISOString()
   };

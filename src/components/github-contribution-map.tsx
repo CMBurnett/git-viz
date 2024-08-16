@@ -60,6 +60,7 @@ const GitHubContributionMap: React.FC<GitHubContributionMapProps> = ({
 
   const handleShapeToggle = () => {
     const newShape = shape === 'rounded-square' ? 'circle' : 'rounded-square';
+    console.log('New shape:', newShape);
     setShape(newShape);
     onShapeChange?.(newShape);
   };
@@ -99,7 +100,7 @@ const GitHubContributionMap: React.FC<GitHubContributionMapProps> = ({
         <>
           <ContributionStats data={processedData} />
           <ContributionGrid data={processedData} shape={shape} />
-          <Legend colorScheme={colorScheme} shape={shape} />
+          <Legend key={shape} colorScheme={colorScheme} shape={shape} />
         </>
       )}
     </motion.div>

@@ -20,7 +20,7 @@ const useContributionCalculations = (data: GitHubData | null, colorScheme: Color
     // Flatten, process, and sort the data
     const processedData = data.weeks.flatMap(week => 
       week.contributionDays.map(day => ({
-        date: day.date,
+        date: new Date(day.date + 'T00:00:00Z').toISOString(),
         count: day.contributionCount,
         color: validColorScheme[getColorIndex(day.contributionCount)]
       }))
