@@ -29,7 +29,7 @@ const DayCell: React.FC<DayCellProps> = ({ date, count, color, shape }) => {
       whileHover={{ scale: 1.2 }}
       aria-label={`${formattedDate}: ${count} contribution${count !== 1 ? 's' : ''}`}
     >
-      <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 bg-slate-50 text-black dark:bg-black dark:text-white text-xs rounded py-1 px-2 opacity-0 group-hover:opacity-100 group-focus:opacity-100 transition-opacity duration-300 pointer-events-none mb-2 whitespace-nowrap z-10">
+      <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 shadow-md bg-white text-black dark:bg-black dark:text-white text-xs rounded py-1 px-2 opacity-0 group-hover:opacity-100 group-focus:opacity-100 transition-opacity duration-300 pointer-events-none mb-2 whitespace-nowrap z-10">
         {`${formattedDate}: ${count} contribution${count !== 1 ? 's' : ''}`}
       </div>
     </motion.div>

@@ -6,7 +6,8 @@ export default function Home() {
   return (
     <main className="container mx-auto p-4">
       <h1 className="text-3xl font-bold mb-4">GitHub Contribution Map</h1>
-      <GitHubContributionMap
+      <div className="px-8 py-4 rounded-lg">
+        <GitHubContributionMap
         username="CMBurnett"
         hexColor="#00aa66"
         shape="rounded-square"
@@ -14,6 +15,7 @@ export default function Home() {
         showLegend={true}
         initialDateRange="1year"
       />
+      </div>
     </main>
   );
 }

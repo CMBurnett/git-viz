@@ -55,7 +55,7 @@ const GitHubContributionMap: React.FC<GitHubContributionMapProps> = ({
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
-      className="w-full max-w-4xl mx-auto p-4"
+      className="w-full mx-auto p-4"
     >
       <StatusMessage loading={loading} error={error} />
       {processedData && (

@@ -33,7 +33,7 @@ const useGitHubData = (username: string, dateRange: DateRange) => {
     };
 
     fetchData();
-  }, [username, dateRange.start, dateRange.end]);
+  }, [username, dateRange]);
 
   return { data, loading, error };
 };
