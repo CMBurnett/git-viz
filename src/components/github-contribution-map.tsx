@@ -7,7 +7,6 @@ import useContributionCalculations from '../hooks/use-contribution-calculations'
 import ContributionGrid from './contribution-grid';
 import ContributionStats from './contribution-stats';
 import Legend from './legend';
-import DateRangePresetSelector from './date-range-preset-selector';
 import StatusMessage from './status-message';
 import { ColorScheme, DateRange, Shape, PredefinedDateRange } from "../types";
 import { getDateRange } from '../utils/date-utils';
@@ -26,7 +25,7 @@ export interface GitHubContributionMapProps {
 
 const GitHubContributionMap: React.FC<GitHubContributionMapProps> = ({
   username,
-  hexColor = '#40c463',
+  hexColor = '#4ac671',
   shape = 'rounded-square',
   showStats = true,
   showLegend = true,
@@ -58,8 +57,6 @@ const GitHubContributionMap: React.FC<GitHubContributionMapProps> = ({
       transition={{ duration: 0.5 }}
       className="w-full max-w-4xl mx-auto p-4"
     >
-      <h2 className="text-2xl font-bold mb-4">GitHub Contributions for {username}</h2>
-      <DateRangePresetSelector onSelect={handleDateRangeChange} currentRange={currentPresetRange} />
       <StatusMessage loading={loading} error={error} />
       {processedData && (
         <>

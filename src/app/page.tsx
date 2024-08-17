@@ -8,29 +8,11 @@ export default function Home() {
       <h1 className="text-3xl font-bold mb-4">GitHub Contribution Map</h1>
       <GitHubContributionMap
         username="CMBurnett"
-        initialDateRange={{
-          start: "2023-01-01T00:00:00Z",
-          end: "2023-12-31T23:59:59Z",
-        }}
-        initialColorScheme={[
-          "#ebedf0",
-          "#9be9a8",
-          "#40c463",
-          "#30a14e",
-          "#216e39",
-        ]}
-        initialShape="circle"
-        showColorSchemeSelector={true}
-        showShapeToggle={true}
-        showDateRangeSelector={true}
-        showDateRangePresetSelector={true}
-        onDateRangeChange={(newRange) =>
-          console.log("Date range changed:", newRange)
-        }
-        onColorSchemeChange={(newScheme) =>
-          console.log("Color scheme changed:", newScheme)
-        }
-        onShapeChange={(newShape) => console.log("Shape changed:", newShape)}
+        hexColor="#00aa66"
+        shape="rounded-square"
+        showStats={true}
+        showLegend={true}
+        initialDateRange="1year"
       />
     </main>
   );

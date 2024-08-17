@@ -29,7 +29,7 @@ export const generatePaletteFromHex = (hexColor: string): string[] => {
   const baseColor = hexColor;
 
   return [
-    'bg-white opacity-20 dark:bg-black dark:opacity-80', // Tailwind class for 0 contributions
+    'bg-white opacity-20 dark:bg-slate-900', // Tailwind class for 0 contributions
     interpolateColor(baseColor, '#FFFFFF', 0.75), // 25% intensity
     interpolateColor(baseColor, '#FFFFFF', 0.5),  // 50% intensity
     baseColor,                                    // Original color (middle)

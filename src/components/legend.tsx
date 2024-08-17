@@ -7,28 +7,22 @@ interface LegendProps {
 }
 
 const Legend: React.FC<LegendProps> = ({ colorScheme, shape }) => {
-  console.log('Legend shape:', shape);
-  const levels = ['0', '1-3', '4-6', '7-9', '10-12', '13+'];
   const cellShape = shape === 'circle' ? 'rounded-full' : 'rounded-sm';
-
-  const displayColors = colorScheme.length === 6 ? colorScheme : ['#ebedf0', '#9be9a8', '#40c463', '#30a14e', '#216e39', '#00471b'];
 
   return (
     <div className="flex items-center justify-end mt-4 text-sm">
-        <span>Less</span>
-        {displayColors.map((color, index) => (
+      <span className='mr-1 text-black dark:text-white'>Less</span>
+      {colorScheme.slice(1).map((color, index) => (
         <div key={index} className="flex flex-col items-center mx-1">
-        <div
+          <div
             className={`w-4 h-4 ${cellShape}`}
             style={{ backgroundColor: color }}
           />
         </div>
       ))}
-        <span>More</span>
+      <span className='ml-1 text-black dark:text-white'>More</span>
     </div>
   );
 };
 
-export default React.memo(Legend, (prevProps, nextProps) => {
-  return prevProps.shape === nextProps.shape && prevProps.colorScheme === nextProps.colorScheme;
-});
+export default React.memo(Legend);
