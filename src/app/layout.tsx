@@ -3,8 +3,8 @@ import type { Metadata } from 'next'
 
 
 export const metadata: Metadata = {
-  title: 'GitHub Contribution Map',
-  description: 'Visualize GitHub contributions',
+  title: "GitViz | GitHub Contribution Visualization",
+  description: 'A Dynamic GitHub Contribution Visualizer',
 }
 
 export default function RootLayout({

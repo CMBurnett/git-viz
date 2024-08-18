@@ -26,7 +26,7 @@ const ContributionGrid: React.FC<ContributionGridProps> = ({ data, shape, colorS
           gridTemplateColumns: 'repeat(auto-fill, minmax(14px, 1fr))',
         }}
         role="grid" 
-        aria-label="GitHub contribution graph"
+        aria-label="GitHub Contribution Graph"
       >
 {data.map((day, index) => {
   console.log(`Grid cell ${index}: date ${day.date}, color ${day.color}`);

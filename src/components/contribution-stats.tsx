@@ -37,9 +37,9 @@ const ContributionStats: React.FC<ContributionStatsProps> = ({ data }) => {
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
+      initial={{ opacity: 0, y: 24 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
+      transition={{ duration: 0.6 }}
       className="rounded-lg p-4 mb-6"
     >
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-8">

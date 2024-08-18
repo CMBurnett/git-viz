@@ -12,28 +12,27 @@ import { ColorScheme, DateRange, Shape, PredefinedDateRange } from "../types";
 import { getDateRange } from '../utils/date-utils';
 import { generatePaletteFromHex } from '../utils/color-utils';
 
-export interface GitHubContributionMapProps {
+export interface GitVizProps {
   username: string;
   hexColor?: string;
   shape?: Shape;
   showStats?: boolean;
   showLegend?: boolean;
-  initialDateRange?: PredefinedDateRange;
+  dateRange?: PredefinedDateRange;
   onDateRangeChange?: (newDateRange: DateRange) => void;
   onColorSchemeChange?: (newColorScheme: ColorScheme) => void;
 }
 
-const GitHubContributionMap: React.FC<GitHubContributionMapProps> = ({
+const GitViz: React.FC<GitVizProps> = ({
   username,
   hexColor = '#4ac671',
   shape = 'rounded-square',
   showStats = true,
   showLegend = true,
-  initialDateRange = '1year',
-  onDateRangeChange,
+  dateRange = '1year',
   onColorSchemeChange
 }) => {
-  const [currentPresetRange, setCurrentPresetRange] = useState<PredefinedDateRange>(initialDateRange);
+  const [currentPresetRange ] = useState<PredefinedDateRange>(dateRange);
   const [colorScheme, setColorScheme] = useState<ColorScheme>(generatePaletteFromHex(hexColor));
 
   const { data, loading, error } = useGitHubData(username, getDateRange(currentPresetRange));
@@ -45,16 +44,11 @@ const GitHubContributionMap: React.FC<GitHubContributionMapProps> = ({
     onColorSchemeChange?.(newColorScheme);
   }, [hexColor, onColorSchemeChange]);
 
-  const handleDateRangeChange = (newPresetRange: PredefinedDateRange) => {
-    setCurrentPresetRange(newPresetRange);
-    onDateRangeChange?.(getDateRange(newPresetRange));
-  };
-
   return (
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      transition={{ duration: 0.5 }}
+      transition={{ duration: 0.6 }}
       className="w-full mx-auto p-4"
     >
       <StatusMessage loading={loading} error={error} />
@@ -69,4 +63,4 @@ const GitHubContributionMap: React.FC<GitHubContributionMapProps> = ({
   );
 };
 
-export default GitHubContributionMap;
+export default GitViz;

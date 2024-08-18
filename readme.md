@@ -1,55 +1,74 @@
-# GitHub Contribution Map Component
+# GitViz: A Dynamic GitHub Contribution Visualizer
 
-A customizable, interactive React component for visualizing GitHub user contributions.
+Elevate your portfolio with GitViz, a sleek and customizable React component that brings GitHub contribution data to life. Perfect for designers and developers who want to add a touch of data-driven aesthetics to their online presence.
 
 ## Features
 
-- Display GitHub user contribution data in grid or heatmap view
-- Customizable date range with preset options
-- Color scheme selection for contribution levels
-- Option for rounded-square or circular day representations in grid view
-- Contribution statistics overview
-- Responsive design using Tailwind CSS
-- Smooth animations with Framer Motion
-- Built with React and Next.js
+- Stunning Visualization: Transform GitHub contribution data into an eye-catching, responsive grid
+- Flexible Styling: Seamlessly integrate with your design system using customizable colors and shapes
+- Responsive Design: Looks great on any device, from mobile to desktop
+- Animation Magic: Smooth, attention-grabbing animations powered by [Framer Motion](https://www.framer.com/motion/)
 
-## New Features
+- Designer-Friendly: Easy to implement with minimal coding required
+- Dark Mode Ready: Automatically adapts to light and dark themes
+- Accessibility Focus: Designed with keyboard navigation and screen reader support in mind
+- Performance Optimized: Fast loading and rendering, even for large datasets
+- Tailwind CSS Integration: Easily customizable using utility classes
 
-- Heatmap view for visualizing contribution intensity
-- Date range preset selector for quick time period switching
-- Contribution statistics display (total contributions, days contributed, longest streak)
-- Animated transitions between grid and heatmap views
+Crafted with React, Next.js, and Tailwind CSS, GitViz is the perfect tool for builders looking to add a dynamic, data-driven element to their projects without compromising on aesthetics or performance.
 
-## Security
-
-- Secure API token handling
-- Protection against injections
-- Rate limiting implementation
-- Caching to reduce API calls
-
-## Target Audience
-
-This component is designed for Designers and Engineers who want to showcase GitHub contribution data in a visually appealing and customizable way.
 
 ## Tech Stack
 
-- React
-- Next.js
-- Tailwind CSS
-- Framer Motion
+- React 18+
+- Next.js 14.2.5
+- Tailwind CSS 3.4.1
+- Framer Motion 11.3.24
+- TypeScript 5+
 
-## Getting Started
+## Installation
 
-See [USAGE.md](./USAGE.md) for installation and usage instructions.
+```bash
+npm install gitviz-react
+```
 
-## Contributing
+or if you're using yarn:
 
-We welcome contributions! Please see [CONTRIBUTION.md](./CONTRIBUTION.md) for details on how to contribute to this project.
+```bash
+yarn add gitviz-react
+```
 
-## Changelog
+## Usage
 
-For a detailed list of changes and version history, please refer to [CHANGELOG.md](./CHANGELOG.md).
+```jsx
+import GitViz from 'gitviz-react';
 
-## License
+function App() {
+  return (
+    <GitViz
+      username="octocat"
+      hexColor="#4ac671"
+      shape="rounded-square"
+      showStats={true}
+      showLegend={true}
+      dateRange="1year"
+    />
+  );
+}
+```
+## Props
 
-[MIT License](./LICENSE)
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| username | string | - | GitHub username to display contributions for |
+| hexColor | string | '#4ac671' | Base color for generating the contribution color scheme |
+| shape | 'rounded-square' \| 'circle' | 'rounded-square' | Shape of the contribution cells |
+| showStats | boolean | true | Whether to display contribution statistics |
+| showLegend | boolean | true | Whether to display the color legend |
+| dateRange | PredefinedDateRange | '1year' | Predefined date range for contributions |
+| onColorSchemeChange | function | - | Callback function when color scheme changes |
+
+## MIT License
+
+[MIT License](/LICENSE)
+
