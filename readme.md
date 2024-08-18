@@ -71,10 +71,10 @@ Before using GitViz, you'll need to obtain a GitHub personal access token. Follo
 
 1. Go to your GitHub account settings
 2. Navigate to Developer settings > [Personal access tokens](https://github.com/settings/tokens)
-3. Generate a new token with 'read:user' scope
+3. Generate a new token with the `user:read` scope
 4. Copy the generated token
 
-Then, add the token your environment:
+Then, add the token to your environment:
 
 ```bash
 GITHUB_API_TOKEN=your_api_key_here
