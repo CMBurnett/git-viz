@@ -7,7 +7,7 @@ export default function Home() {
     <main className="container mx-auto p-4">
       <div className="px-8 py-4 rounded-lg">
         <GitViz
-        username="CMBurnett"
+        username="octocat"
         hexColor="#00aa66"
         shape="rounded-square"
         showStats={true}
