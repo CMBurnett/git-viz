@@ -77,6 +77,6 @@ Before using GitViz, you'll need to obtain a GitHub personal access token. Follo
 Then, add the token to your environment:
 
 ```bash
-GITHUB_API_TOKEN=your_api_key_here
+NEXT_PUBLIC_GITHUB_API_TOKEN=your_api_key_here
 ```
 
