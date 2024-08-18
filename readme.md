@@ -58,25 +58,25 @@ function App() {
 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
-| username | string | - - - | The GitHub username to display contributions for |
+| username | string | octocat | The GitHub username to display contributions for |
 | hexColor | string | '#4ac671' | Base color for generating the contribution color scheme |
 | shape | 'rounded-square' \| 'circle' | 'rounded-square' | Shape of the contribution cells |
 | showStats | boolean | true | Whether to display contribution statistics |
 | showLegend | boolean | true | Whether to display the color legend |
-| dateRange | '7days' \| '30days' \| '3months' \| '6months' \| '1year' | Predefined date range for contributions |
+| dateRange  | '7days' \| '30days' \| '3months' \| '6months' \| '1year' | Predefined date range for contributions | Some predefined date ranges for contributions           |
 
-## You need your own GitHub Personal Access Token
+## GitHub Personal Access Token
 
 Before using GitViz, you'll need to obtain a GitHub personal access token. Follow these steps:
 
 1. Go to your GitHub account settings
-2. Navigate to Developer settings > Personal access tokens
-3. Generate a new token with the `repo` and `user` scopes
+2. Navigate to Developer settings > [Personal access tokens](https://github.com/settings/tokens)
+3. Generate a new token with 'read:user' scope
 4. Copy the generated token
 
-Then, add it to your environment:
+Then, add the token your environment:
 
 ```bash
-NEXT_PUBLIC_GITHUB_API_TOKEN=your_api_key_here
+GITHUB_API_TOKEN=your_api_key_here
 ```
 
